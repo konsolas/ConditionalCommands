@@ -1,0 +1,16 @@
+name: ConditionalCommands
+version: 1.0
+main: me.konsolas.conditionalcommands.ConditionalCommands
+description: Excecute commands based on conditions. Useful in configured commands from other plugins
+author: konsolas
+website: https://github.com/konsolas/ConditionalCommands
+commands:
+  cc:
+    usage: /<command> <mode> [args...]
+    description: Main command. /cc help
+    permission: cc.use
+    permission-message: Such command, no permission.
+permissions:
+  cc.use:
+    description: Root permission
+    default: op
