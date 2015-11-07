@@ -11,16 +11,6 @@ public class Expression {
         this.expression = parser.build();
     }
 
-    /*
-     * END CRAPPY LEXER
-     * ----------------
-     */
-
-    /*
-     * BEGIN CRAPPY RECURSIVE DESCENT PARSER
-     * -------------------------------------
-     */
-
     public boolean evaluate() {
         return (boolean) expression.interpret();
     }
@@ -30,15 +20,10 @@ public class Expression {
         return expression.toString();
     }
 
-    // AST Interfaces
     private interface BooleanExpression {
         Object interpret();
     }
 
-    /*
-     * BEGIN CRAPPY LEXER
-     * ------------------
-     */
     private static class BooleanLexer {
         private final StreamTokenizer input;
 
@@ -170,14 +155,12 @@ public class Expression {
         }
     }
 
-    // AST terminal objects
     private static final class Number extends Terminal {
         public Number(double number) {
             super(number);
         }
     }
 
-    // AST nonterminal objects
     private static final class And extends NonTerminal {
         @Override
         public Object interpret() {
@@ -256,11 +239,6 @@ public class Expression {
             return String.format("(%s > %s)", left, right);
         }
     }
-
-    /*
-     * END CRAPPY RECURSIVE DESCENT PARSER
-     * -----------------------------------
-     */
 
     private static final class CmpLessThan extends NonTerminal {
         @Override
