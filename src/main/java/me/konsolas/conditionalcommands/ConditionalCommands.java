@@ -61,6 +61,8 @@ public class ConditionalCommands extends JavaPlugin {
                 } catch (AbstractPlaceholder.PlaceholderException ex) {
                     sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Failed to apply a placeholder: " + ex.getMessage());
                     sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] >" + ChatColor.GREEN + "   /cc help");
+                    getLogger().severe("An error occurred whilst applying a placeholder.");
+                    ex.printStackTrace();
                     return false;
                 }
             }
@@ -90,21 +92,21 @@ public class ConditionalCommands extends JavaPlugin {
             return false;
         }
 
-        sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Successfully parsed expression: " + expression.toString());
+        getLogger().info("Successfully parsed expression: " + expression.toString());
 
         switch (action) {
             case "unless":
                 if (!expression.evaluate()) {
                     dispatchCommand(sender, command.toString());
                 } else {
-                    sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Not dispatching command because \"" + args[1] + "\" evaluated to true");
+                    sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Not dispatching command because \"" + args[2] + "\" evaluated to true");
                 }
                 break;
             case "if":
                 if (expression.evaluate()) {
                     dispatchCommand(sender, command.toString());
                 } else {
-                    sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Not dispatching command because \"" + args[1] + "\" evaluated to false");
+                    sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Not dispatching command because \"" + args[2] + "\" evaluated to false");
                 }
                 break;
             default:
