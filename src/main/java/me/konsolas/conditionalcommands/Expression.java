@@ -1,6 +1,9 @@
 package me.konsolas.conditionalcommands;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StreamTokenizer;
+import java.io.StringReader;
 
 public class Expression {
     private final BooleanExpression expression;
@@ -28,7 +31,7 @@ public class Expression {
         private final StreamTokenizer input;
 
         public BooleanLexer(String in) {
-            input = new StreamTokenizer(new BufferedReader(new InputStreamReader(new ByteArrayInputStream(in.getBytes()))));
+            input = new StreamTokenizer(new BufferedReader(new StringReader(in)));
 
             // Syntax rules
             input.resetSyntax();
