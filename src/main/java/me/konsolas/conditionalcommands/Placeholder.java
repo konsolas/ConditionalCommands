@@ -1,14 +1,12 @@
 package me.konsolas.conditionalcommands;
 
-import me.konsolas.conditionalcommands.placeholders.AbstractPlaceholder;
-import me.konsolas.conditionalcommands.placeholders.PlaceholderPing;
-import me.konsolas.conditionalcommands.placeholders.PlaceholderTPS;
-import me.konsolas.conditionalcommands.placeholders.PlaceholderTimeOnline;
+import me.konsolas.conditionalcommands.placeholders.*;
 
-public enum Placeholder {
+enum Placeholder {
     PING(new PlaceholderPing()),
     TPS(new PlaceholderTPS()),
-    TIME_ONLINE(new PlaceholderTimeOnline()),;
+    TIME_ONLINE(new PlaceholderTimeOnline()),
+    PLAYER_COUNT(new PlaceholderPlayerCount());
 
     private AbstractPlaceholder placeholder;
 

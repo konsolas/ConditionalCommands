@@ -5,16 +5,16 @@ import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 
-public class Expression {
+class Expression {
     private final BooleanExpression expression;
 
-    public Expression(String exp) {
+    Expression(String exp) {
         BooleanLexer lex = new BooleanLexer(exp);
         BooleanParser parser = new BooleanParser(lex);
         this.expression = parser.build();
     }
 
-    public boolean evaluate() {
+    boolean evaluate() {
         return (boolean) expression.interpret();
     }
 
@@ -30,7 +30,7 @@ public class Expression {
     private static class BooleanLexer {
         private final StreamTokenizer input;
 
-        public BooleanLexer(String in) {
+        BooleanLexer(String in) {
             input = new StreamTokenizer(new BufferedReader(new StringReader(in)));
 
             // Syntax rules
@@ -54,7 +54,7 @@ public class Expression {
             input.parseNumbers();
         }
 
-        public SymbolObject nextToken() {
+        SymbolObject nextToken() {
             Symbol symbol;
             Double data = null;
 
@@ -105,33 +105,33 @@ public class Expression {
         }
 
         // Types of symbol
-        public enum Symbol {
+        enum Symbol {
             EOF, EOL, OR, AND, NOT, LEFT, RIGHT, CMP_EQUALS, CMP_LESS_THAN, CMP_GREATER_THAN, NUMBER
         }
 
-        public static class SymbolObject {
+        static class SymbolObject {
             private Symbol symbol;
             private Double data;
 
-            public SymbolObject(Symbol symbol, Double data) {
+            SymbolObject(Symbol symbol, Double data) {
                 this.symbol = symbol;
                 this.data = data == null ? 0 : data;
             }
 
-            public Symbol getSymbol() {
+            Symbol getSymbol() {
                 return symbol;
             }
 
-            public double getData() {
+            double getData() {
                 return data != null ? data : 0;
             }
         }
     }
 
     private static abstract class Terminal implements BooleanExpression {
-        protected final Object value;
+        final Object value;
 
-        protected Terminal(Object value) {
+        Terminal(Object value) {
             this.value = value;
         }
 
@@ -147,9 +147,10 @@ public class Expression {
     }
 
     private static abstract class NonTerminal implements BooleanExpression {
-        protected BooleanExpression left, right;
+        BooleanExpression left;
+        BooleanExpression right;
 
-        public void setLeft(BooleanExpression left) {
+        void setLeft(BooleanExpression left) {
             this.left = left;
         }
 
@@ -159,7 +160,7 @@ public class Expression {
     }
 
     private static final class Number extends Terminal {
-        public Number(double number) {
+        Number(double number) {
             super(number);
         }
     }
@@ -195,7 +196,7 @@ public class Expression {
     }
 
     private static final class Not extends NonTerminal {
-        public void setChild(BooleanExpression child) {
+        void setChild(BooleanExpression child) {
             setLeft(child);
         }
 
@@ -259,8 +260,8 @@ public class Expression {
     }
 
     // Errors
-    public static class ParseException extends RuntimeException {
-        public ParseException(String desc) {
+    static class ParseException extends RuntimeException {
+        ParseException(String desc) {
             super(desc);
         }
     }
@@ -284,11 +285,11 @@ public class Expression {
         private BooleanLexer.SymbolObject symbol;
         private BooleanExpression root;
 
-        public BooleanParser(BooleanLexer lexer) {
+        BooleanParser(BooleanLexer lexer) {
             this.lexer = lexer;
         }
 
-        public BooleanExpression build() {
+        BooleanExpression build() {
             try {
                 expression();
                 root.interpret();
