@@ -121,7 +121,9 @@ public class ConditionalCommands extends JavaPlugin {
     private void dispatchCommand(CommandSender sender, String command) {
         try {
             sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Dispatching command \"" + command + "\"");
-            this.getServer().dispatchCommand(sender, command);
+            for (String i : command.split(";")) {
+                this.getServer().dispatchCommand(i, command);
+            }
         } catch (CommandException ex) {
             sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > An error occured whilst executing the command. The stack trace has been printed in the console.");
             this.getLogger().warning("Failed to execute command. THIS IS NOT AN ERROR WITH CONDITIONALCOMMANDS!");
