@@ -49,6 +49,7 @@ class Expression {
 
             // Comparison
             input.ordinaryChar('>');
+            input.ordinaryChar('»');
             input.ordinaryChar('=');
             input.ordinaryChar('<');
 
@@ -89,6 +90,7 @@ class Expression {
                         symbol = Symbol.NOT;
                         break;
                     case '>':
+                    case '»':
                         symbol = Symbol.CMP_GREATER_THAN;
                         break;
                     case '=':
