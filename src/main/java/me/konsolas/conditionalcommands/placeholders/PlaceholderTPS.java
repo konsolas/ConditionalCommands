@@ -36,10 +36,9 @@ public class PlaceholderTPS extends AbstractPlaceholder {
             this.runTaskTimer(plugin, 1, 1);
         }
 
-        public double getCurrentTPS() {
+        double getCurrentTPS() {
             try {
                 double tps = 1000D / getDelta();
-
                 return tps > 20D ? 20D : tps;
             } catch (Exception e) {
                 return 20D;
