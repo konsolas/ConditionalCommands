@@ -11,9 +11,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ConditionalCommands extends JavaPlugin {
     public void onEnable() {
+        getLogger().info("Initializing placeholders...");
         for (Placeholders placeholder : Placeholders.values()) {
             placeholder.getPlaceholder().init(this);
         }
+        getLogger().info("Ready.");
     }
 
     @Override
