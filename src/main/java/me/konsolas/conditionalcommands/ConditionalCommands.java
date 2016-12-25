@@ -11,9 +11,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ConditionalCommands extends JavaPlugin {
     public void onEnable() {
-        for (Placeholder placeholder : Placeholder.values()) {
+        getLogger().info("Initializing placeholders...");
+        for (Placeholders placeholder : Placeholders.values()) {
             placeholder.getPlaceholder().init(this);
         }
+        getLogger().info("Ready.");
     }
 
     @Override
@@ -47,14 +49,13 @@ public class ConditionalCommands extends JavaPlugin {
         // Get the player
         Player placeholderFor = Bukkit.getPlayer(args[0]);
         if (placeholderFor == null) {
-            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Player " + args[0] + " doesn't appear to be online...");
-            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] >" + ChatColor.GREEN + "   /cc help");
-            return false;
+            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Not dispatching command because " + args[0] + " is not online...");
+            return true;
         }
 
         // Get the condition
         String modifiedStr = args[2];
-        for (Placeholder placeholder : Placeholder.values()) {
+        for (Placeholders placeholder : Placeholders.values()) {
             if (placeholder.getPlaceholder().shouldApply(modifiedStr)) {
                 try {
                     modifiedStr = placeholder.getPlaceholder().doSubstitution(modifiedStr, placeholderFor);
@@ -76,7 +77,7 @@ public class ConditionalCommands extends JavaPlugin {
 
         // Make sure there's a 'do' third.
         if (!args[3].equals("do")) {
-            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Missing 'do' clause. Does the condition have spaces in it?");
+            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Missing 'do' clause. Make sure the condition has no spaces.");
             sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] >" + ChatColor.GREEN + "   /cc help");
             return false;
         }
@@ -125,7 +126,7 @@ public class ConditionalCommands extends JavaPlugin {
                 this.getServer().dispatchCommand(sender, i);
             }
         } catch (CommandException ex) {
-            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > An error occured whilst executing the command. The stack trace has been printed in the console.");
+            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > An error occured whilst executing the command. The stack trace has been printed to the console.");
             this.getLogger().warning("Failed to execute command. THIS IS NOT AN ERROR WITH CONDITIONALCOMMANDS!");
             ex.printStackTrace();
         }

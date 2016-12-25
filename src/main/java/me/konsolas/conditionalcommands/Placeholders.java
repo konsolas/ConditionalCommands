@@ -2,15 +2,16 @@ package me.konsolas.conditionalcommands;
 
 import me.konsolas.conditionalcommands.placeholders.*;
 
-enum Placeholder {
+enum Placeholders {
     PING(new PlaceholderPing()),
     TPS(new PlaceholderTPS()),
     TIME_ONLINE(new PlaceholderTimeOnline()),
-    PLAYER_COUNT(new PlaceholderPlayerCount());
+    PLAYER_COUNT(new PlaceholderPlayerCount()),
+    UPTIME(new PlaceholderUptime());
 
     private AbstractPlaceholder placeholder;
 
-    Placeholder(AbstractPlaceholder placeholder) {
+    Placeholders(AbstractPlaceholder placeholder) {
         this.placeholder = placeholder;
     }
 
