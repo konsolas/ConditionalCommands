@@ -8,7 +8,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ConditionalCommands extends JavaPlugin {
+    private static final Pattern SPLIT_PATTERN = Pattern.compile("/([0-9]*)/");
+
     public void onEnable() {
         getLogger().info("Initializing placeholders...");
         for (Placeholders placeholder : Placeholders.values()) {
@@ -118,12 +123,45 @@ public class ConditionalCommands extends JavaPlugin {
         return true;
     }
 
-    private void dispatchCommand(CommandSender sender, String command) {
+    private void dispatchCommand(final CommandSender sender, String command) {
+        // Delayed/multi command syntax.
+        Matcher matcher = SPLIT_PATTERN.matcher(command);
+
+        if (!matcher.find()) {
+            protectedDispatch(sender, command);
+        } else {
+            try {
+                int delay, cmdStart, cmdEnd;
+                do {
+                    delay = Integer.parseInt(matcher.group(1));
+                    cmdStart = matcher.end();
+                    if (!matcher.find()) {
+                        cmdEnd = command.length();
+                    } else {
+                        cmdEnd = matcher.start();
+                    }
+
+                    final String cmd = command.substring(cmdStart, cmdEnd).trim();
+                    sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Will dispatch command \"" + cmd + "\" in " + delay + " ticks");
+                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+                        @Override
+                        public void run() {
+                            protectedDispatch(sender, cmd);
+                        }
+                    }, delay);
+                } while (cmdEnd != command.length());
+            } catch (NumberFormatException e) {
+                sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Invalid delay in the format /<delay>/: " + e.getMessage());
+            }
+        }
+    }
+
+    private void protectedDispatch(CommandSender sender, String command) {
         try {
             sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Dispatching command \"" + command + "\"");
             this.getServer().dispatchCommand(sender, command);
         } catch (CommandException ex) {
-            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > An error occured whilst executing the command. The stack trace has been printed to the console.");
+            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > An error occurred whilst executing the command. The stack trace has been printed to the console.");
             this.getLogger().warning("Failed to execute command. THIS IS NOT AN ERROR WITH CONDITIONALCOMMANDS!");
             ex.printStackTrace();
         }
