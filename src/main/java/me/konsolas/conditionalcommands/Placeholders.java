@@ -7,15 +7,16 @@ enum Placeholders {
     TPS(new PlaceholderTPS()),
     TIME_ONLINE(new PlaceholderTimeOnline()),
     PLAYER_COUNT(new PlaceholderPlayerCount()),
-    UPTIME(new PlaceholderUptime());
+    UPTIME(new PlaceholderUptime()),
+    PERM(new PlaceholderPerm());
 
-    private AbstractPlaceholder placeholder;
+    private Placeholder placeholder;
 
-    Placeholders(AbstractPlaceholder placeholder) {
+    Placeholders(Placeholder placeholder) {
         this.placeholder = placeholder;
     }
 
-    public AbstractPlaceholder getPlaceholder() {
+    public Placeholder getPlaceholder() {
         return placeholder;
     }
 }

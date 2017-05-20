@@ -14,4 +14,4 @@ commands:
 permissions:
   cc.use:
     description: Root permission
-    default: false
+    default: op

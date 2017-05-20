@@ -87,7 +87,7 @@ public class ConditionalCommands extends JavaPlugin {
         try {
             expression = new Expression(modifiedStr);
         } catch (Expression.ParseException ex) {
-            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Failed to parse expression: " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
+            sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Failed to parse \"" + modifiedStr + "\": " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
             sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Roughly translated, that means you spelt something wrong or made a syntax error in the condition.");
             sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] >" + ChatColor.GREEN + "   /cc help");
             return false;
