@@ -22,7 +22,7 @@ public class PlaceholderAACVL extends AbstractParameteredPlaceholder {
     protected String getSub(Player player, String param) {
         try {
             Object obj = getAPI.invoke(null);
-            int VL = (int) getViolationLevel.invoke(obj, player, hackTypes.get(param));
+            int VL = (int) getViolationLevel.invoke(obj, player, hackTypes.get(param.toLowerCase()));
             return Integer.toString(VL);
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException("Failed to handle AAC placeholder for " + param, e);
