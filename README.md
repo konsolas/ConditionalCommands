@@ -18,7 +18,7 @@ Grammar of conditions:
 <factor>::=<comparison>|<not><factor>|(<expression>)
 <comparison>::=<constant><comparator><constant>
 <constant>::=floating point number or integer
-<and>::='&'
+<and>::='&' or '+'
 <or>::='|'
 <not>::='!'
 <comparator>::='>'|'='|'<'

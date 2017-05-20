@@ -43,11 +43,13 @@ class Expression {
             input.ordinaryChar('(');
             input.ordinaryChar(')');
             input.ordinaryChar('&');
+            input.ordinaryChar('+');
             input.ordinaryChar('|');
             input.ordinaryChar('!');
 
             // Comparison
             input.ordinaryChar('>');
+            input.ordinaryChar('»');
             input.ordinaryChar('=');
             input.ordinaryChar('<');
 
@@ -78,6 +80,7 @@ class Expression {
                         symbol = Symbol.RIGHT;
                         break;
                     case '&':
+                    case '+':
                         symbol = Symbol.AND;
                         break;
                     case '|':
@@ -87,6 +90,7 @@ class Expression {
                         symbol = Symbol.NOT;
                         break;
                     case '>':
+                    case '»':
                         symbol = Symbol.CMP_GREATER_THAN;
                         break;
                     case '=':
