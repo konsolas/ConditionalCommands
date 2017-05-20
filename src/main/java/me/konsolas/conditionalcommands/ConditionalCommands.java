@@ -1,6 +1,5 @@
 package me.konsolas.conditionalcommands;
 
-import me.konsolas.conditionalcommands.placeholders.AbstractPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -9,7 +8,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ConditionalCommands extends JavaPlugin {
+    private static final Pattern SPLIT_PATTERN = Pattern.compile("/([0-9]*)/");
+
     public void onEnable() {
         getLogger().info("Initializing placeholders...");
         for (Placeholders placeholder : Placeholders.values()) {
@@ -20,7 +24,6 @@ public class ConditionalCommands extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
         boolean player = (sender instanceof Player);
 
         if (args.length == 0 || (args.length > 1 && args.length < 5)) {
@@ -66,7 +69,7 @@ public class ConditionalCommands extends JavaPlugin {
             if (placeholder.getPlaceholder().shouldApply(modifiedStr)) {
                 try {
                     modifiedStr = placeholder.getPlaceholder().doSubstitution(modifiedStr, placeholderFor);
-                } catch (AbstractPlaceholder.PlaceholderException ex) {
+                } catch (Exception ex) {
                     sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Failed to apply a placeholder: " + ex.getMessage());
                     sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] >" + (player ? ChatColor.GREEN : "") + "   /cc help");
                     getLogger().severe("An error occurred whilst applying a placeholder.");
@@ -94,9 +97,9 @@ public class ConditionalCommands extends JavaPlugin {
         try {
             expression = new Expression(modifiedStr);
         } catch (Expression.ParseException ex) {
-            sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Failed to parse expression: " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
+            sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Failed to parse \"" + modifiedStr + "\": " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
             sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Roughly translated, that means you spelt something wrong or made a syntax error in the condition.");
-            sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] >" + (player ? ChatColor.GREEN : "") + "   /cc help");
+            sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] >" + ChatColor.GREEN + "   /cc help");
             return false;
         }
 
@@ -126,7 +129,41 @@ public class ConditionalCommands extends JavaPlugin {
         return true;
     }
 
-    private void dispatchCommand(CommandSender sender, String command) {
+    private void dispatchCommand(final CommandSender sender, String command) {
+        boolean player = (sender instanceof Player);
+        // Delayed/multi command syntax.
+        Matcher matcher = SPLIT_PATTERN.matcher(command);
+
+        if (!matcher.find()) {
+            protectedDispatch(sender, command);
+        } else {
+            try {
+                int delay, cmdStart, cmdEnd;
+                do {
+                    delay = Integer.parseInt(matcher.group(1));
+                    cmdStart = matcher.end();
+                    if (!matcher.find()) {
+                        cmdEnd = command.length();
+                    } else {
+                        cmdEnd = matcher.start();
+                    }
+
+                    final String cmd = command.substring(cmdStart, cmdEnd).trim();
+                    sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Will dispatch command \"" + cmd + "\" in " + delay + " ticks");
+                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+                        @Override
+                        public void run() {
+                            protectedDispatch(sender, cmd);
+                        }
+                    }, delay);
+                } while (cmdEnd != command.length());
+            } catch (NumberFormatException e) {
+                sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Invalid delay in the format /<delay>/: " + e.getMessage());
+            }
+        }
+    }
+
+    private void protectedDispatch(CommandSender sender, String command) {
         boolean player = (sender instanceof Player);
         try {
             sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Dispatching command \"" + command + "\"");
