@@ -1,6 +1,5 @@
 package me.konsolas.conditionalcommands;
 
-import me.konsolas.conditionalcommands.placeholders.AbstractPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -59,7 +58,7 @@ public class ConditionalCommands extends JavaPlugin {
             if (placeholder.getPlaceholder().shouldApply(modifiedStr)) {
                 try {
                     modifiedStr = placeholder.getPlaceholder().doSubstitution(modifiedStr, placeholderFor);
-                } catch (AbstractPlaceholder.PlaceholderException ex) {
+                } catch (Exception ex) {
                     sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] > Failed to apply a placeholder: " + ex.getMessage());
                     sender.sendMessage(ChatColor.GOLD + "[ConditionalCommands] >" + ChatColor.GREEN + "   /cc help");
                     getLogger().severe("An error occurred whilst applying a placeholder.");

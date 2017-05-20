@@ -8,7 +8,7 @@ import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
 
-public class PlaceholderTPS extends AbstractPlaceholder {
+public class PlaceholderTPS extends AbstractStandardPlaceholder {
     private TPS tps;
 
     public PlaceholderTPS() {

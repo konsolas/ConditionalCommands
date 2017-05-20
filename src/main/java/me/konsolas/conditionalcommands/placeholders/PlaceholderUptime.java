@@ -3,7 +3,7 @@ package me.konsolas.conditionalcommands.placeholders;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class PlaceholderUptime extends AbstractPlaceholder {
+public class PlaceholderUptime extends AbstractStandardPlaceholder {
     private long startupTimeMS;
 
     public PlaceholderUptime() {

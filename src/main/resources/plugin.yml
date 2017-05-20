@@ -4,6 +4,7 @@ main: me.konsolas.conditionalcommands.ConditionalCommands
 description: Excecute commands based on conditions. Useful in configured commands from other plugins
 author: konsolas
 website: https://github.com/konsolas/ConditionalCommands
+softdepend: [AAC]
 commands:
   ccmd:
     usage: /<command> <mode> [args...]

@@ -11,7 +11,7 @@ import org.bukkit.plugin.Plugin;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlaceholderTimeOnline extends AbstractPlaceholder implements Listener {
+public class PlaceholderTimeOnline extends AbstractStandardPlaceholder implements Listener {
     private final Map<Player, Long> loginTime = new HashMap<>();
 
     public PlaceholderTimeOnline() {
@@ -45,10 +45,6 @@ public class PlaceholderTimeOnline extends AbstractPlaceholder implements Listen
 
     @Override
     public double getStat(Player player) {
-        try {
-            return System.currentTimeMillis() - loginTime.get(player);
-        } catch (NullPointerException ex) {
-            throw this.new PlaceholderException("Could not get login time for player", ex);
-        }
+        return System.currentTimeMillis() - loginTime.get(player);
     }
 }

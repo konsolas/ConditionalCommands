@@ -8,7 +8,8 @@ enum Placeholders {
     TIME_ONLINE(new PlaceholderTimeOnline()),
     PLAYER_COUNT(new PlaceholderPlayerCount()),
     UPTIME(new PlaceholderUptime()),
-    PERM(new PlaceholderPerm());
+    PERM(new PlaceholderPerm()),
+    AACVL(new PlaceholderAACVL());
 
     private Placeholder placeholder;
 
