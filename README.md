@@ -1,3 +1,4 @@
+![build](https://travis-ci.org/konsolas/ConditionalCommands.svg?branch=master)
 # ConditionalCommands
 Only execute a command if a condition is met.
 
