@@ -42,7 +42,7 @@ Placeholders are delimited by '-'. Since they're applied with a replace, errors 
  - ```player_count``` - Number of players on the server
  - ```perm:<permission>``` - 1.0 if the player has the permission, 0.0 otherwise. e.g. ```-perm:essentials.home-```
  - ```aacvl:<check>``` - AAC violation level of the given check (internal name). e.g. ```-aacvl:speed-```
- - ```chance:<percentage>%``` - Will be 1.0 <percentage>% of the time. e.g. ```-chance:34.5%-```
+ - ```chance:<percentage>%``` - Will be 1.0 percentage% of the time. e.g. ```-chance:34.5%-```
 
 ### Multi command / delayed commands
 In the 'do' clause of the statement, multiple commands can be executed at once, and selected commands can be delayed if desired. The command delimiter is ```/<delay>/```, where the integer between ```/``` and ```/``` denotes the delay before the command should be executed in ticks. Here are some examples:
