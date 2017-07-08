@@ -9,7 +9,8 @@ enum Placeholders {
     PLAYER_COUNT(new PlaceholderPlayerCount()),
     UPTIME(new PlaceholderUptime()),
     PERM(new PlaceholderPerm()),
-    AACVL(new PlaceholderAACVL());
+    AACVL(new PlaceholderAACVL()),
+    CHANCE(new PlaceholderChance());
 
     private Placeholder placeholder;
 
