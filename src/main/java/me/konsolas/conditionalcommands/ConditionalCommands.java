@@ -38,10 +38,8 @@ public class ConditionalCommands extends JavaPlugin {
             if (args[0].equals("help")) {
                 sender.sendMessage((player ? ChatColor.GOLD : "") + "--------=ConditionalCommands=--------");
                 sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc help");
-                sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc <player> unless \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "condition"
-                        + (player ? ChatColor.GREEN : "") + "\" do \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "command" + (player ? ChatColor.GREEN : "") + "\"");
-                sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc <player> if \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "condition"
-                        + (player ? ChatColor.GREEN : "") + "\" do \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "command" + (player ? ChatColor.GREEN : "") + "\"");
+                sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc <player> unless \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "condition" + (player ? ChatColor.GREEN : "") + "\" do \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "command" + (player ? ChatColor.GREEN : "") + "\"");
+                sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc <player> if \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "condition" + (player ? ChatColor.GREEN : "") + "\" do \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "command" + (player ? ChatColor.GREEN : "") + "\"");
                 sender.sendMessage((player ? ChatColor.GRAY : "") + "e.g.");
                 sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc konsolas unless -ping->100|-tps-<10.0 do kick konsolas");
                 sender.sendMessage((player ? ChatColor.GRAY : "") + "Please note that conditions cannot include any spaces.");

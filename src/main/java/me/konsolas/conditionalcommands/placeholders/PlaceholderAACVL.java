@@ -44,10 +44,8 @@ public class PlaceholderAACVL extends AbstractParameteredPlaceholder {
                 }
             }
 
-            getAPI = Class.forName("me.konsolas.aac.api.AACAPIProvider")
-                    .getDeclaredMethod("getAPI");
-            getViolationLevel = Class.forName("me.konsolas.aac.api.AACAPI")
-                    .getDeclaredMethod("getViolationLevel", Player.class, hackTypeClass);
+            getAPI = Class.forName("me.konsolas.aac.api.AACAPIProvider").getDeclaredMethod("getAPI");
+            getViolationLevel = Class.forName("me.konsolas.aac.api.AACAPI").getDeclaredMethod("getViolationLevel", Player.class, hackTypeClass);
         } catch (ClassNotFoundException | IllegalAccessException | NoSuchMethodException e) {
             throw new RuntimeException("Failed to initialise AAC placeholders", e);
         }

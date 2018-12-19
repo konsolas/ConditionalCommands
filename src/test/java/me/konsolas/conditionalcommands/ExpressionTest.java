@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class ExpressionTest {
+
     @Test
     public void testEquality() {
         Expression expression = new Expression("10 = 10");

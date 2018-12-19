@@ -23,11 +23,9 @@ public abstract class AbstractParameteredPlaceholder implements Placeholder {
     @Override
     public String doSubstitution(String input, Player player) {
         Matcher matcher = pattern.matcher(input);
-
         while (matcher.find()) {
             input = input.replaceAll(Pattern.quote(matcher.group()), getSub(player, matcher.group(1)));
         }
-
         return input;
     }
 

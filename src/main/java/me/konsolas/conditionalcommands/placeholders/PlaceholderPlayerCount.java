@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class PlaceholderPlayerCount extends AbstractStandardPlaceholder {
+
     public PlaceholderPlayerCount() {
         super("player_count");
     }
