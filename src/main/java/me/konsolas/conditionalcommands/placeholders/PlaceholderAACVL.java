@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlaceholderAACVL extends AbstractParameteredPlaceholder {
+
     private Map<String, Object> hackTypes = new HashMap<>();
     private Method getAPI;
     private Method getViolationLevel;

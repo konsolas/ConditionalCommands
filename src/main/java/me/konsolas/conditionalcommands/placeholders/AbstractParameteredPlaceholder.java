@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class AbstractParameteredPlaceholder implements Placeholder {
+
     private final Pattern pattern;
 
     AbstractParameteredPlaceholder(String base) {

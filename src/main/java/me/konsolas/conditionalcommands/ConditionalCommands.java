@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ConditionalCommands extends JavaPlugin {
+
     private static final Pattern SPLIT_PATTERN = Pattern.compile("/([0-9]*)/");
 
     public void onEnable() {

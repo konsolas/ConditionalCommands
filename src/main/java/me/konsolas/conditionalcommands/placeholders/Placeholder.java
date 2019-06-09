@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public interface Placeholder {
+
     /**
      * Checks whether the given string contains a pattern that matches this placeholder
      *

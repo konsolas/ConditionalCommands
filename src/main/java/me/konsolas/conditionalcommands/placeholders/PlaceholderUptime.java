@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public class PlaceholderUptime extends AbstractStandardPlaceholder {
+
     private long startupTimeMS;
 
     public PlaceholderUptime() {
@@ -19,4 +20,5 @@ public class PlaceholderUptime extends AbstractStandardPlaceholder {
     public double getStat(Player player) {
         return (System.currentTimeMillis() - startupTimeMS) / 50;
     }
+
 }

@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Deque;
 
 public class PlaceholderTPS extends AbstractStandardPlaceholder {
+
     private TPS tps;
 
     public PlaceholderTPS() {
@@ -26,8 +27,10 @@ public class PlaceholderTPS extends AbstractStandardPlaceholder {
     }
 
     private static class TPS extends BukkitRunnable {
+
         private int resolution = 40;
         private long lastTick;
+
         private Deque<Long> tickIntervals;
 
         private TPS(Plugin plugin) {

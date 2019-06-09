@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class PlaceholderPing extends AbstractStandardPlaceholder {
+
     private Method getHandleMethod;
     private Field pingField;
 

@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlaceholderTimeOnline extends AbstractStandardPlaceholder implements Listener {
+
     private final Map<Player, Long> loginTime = new HashMap<>();
 
     public PlaceholderTimeOnline() {
@@ -47,4 +48,5 @@ public class PlaceholderTimeOnline extends AbstractStandardPlaceholder implement
     public double getStat(Player player) {
         return System.currentTimeMillis() - loginTime.get(player);
     }
+
 }

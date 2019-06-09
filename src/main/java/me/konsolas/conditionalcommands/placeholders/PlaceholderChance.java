@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PlaceholderChance extends AbstractParameteredPlaceholder {
+
     public PlaceholderChance() {
         super("chance");
     }

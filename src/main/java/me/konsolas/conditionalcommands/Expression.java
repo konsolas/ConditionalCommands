@@ -6,6 +6,7 @@ import java.io.StreamTokenizer;
 import java.io.StringReader;
 
 class Expression {
+
     private final BooleanExpression expression;
 
     Expression(String exp) {

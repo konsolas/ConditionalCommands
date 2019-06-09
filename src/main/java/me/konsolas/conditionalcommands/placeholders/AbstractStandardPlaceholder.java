@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public abstract class AbstractStandardPlaceholder implements Placeholder {
+
     private String matcher;
 
     AbstractStandardPlaceholder(String matcher) {
