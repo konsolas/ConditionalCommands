@@ -41,6 +41,7 @@ Placeholders are delimited by '-'. Since they're applied with a replace, errors 
  - ```uptime``` - Server uptime in ticks
  - ```player_count``` - Number of players on the server
  - ```perm:<permission>``` - 1.0 if the player has the permission, 0.0 otherwise. e.g. ```-perm:essentials.home-```
+ - ```perm_count:<permission>``` - Number of players online who have the permission, 0.0 otherwise. e.g. ```-perm_count:essentials.home-```
  - ```aacvl:<check>``` - AAC violation level of the given check (internal name). e.g. ```-aacvl:speed-```
  - ```chance:<percentage>%``` - Will be 1.0 percentage% of the time. e.g. ```-chance:34.5%-```
 
