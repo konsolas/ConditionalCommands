@@ -18,28 +18,16 @@ public class PlaceholderCooldown extends AbstractParameteredPlaceholder {
 
     @Override
     protected String getSub(Player player, String param) {
-        String[] split = param.split("#");
-        if (split.length != 2) {
-            throw new RuntimeException("cooldown parameter '" + param + "' has invalid formatting - exactly one '#' needed");
-        }
-        String key = split[0];
-        long seconds = 0;
-        try {
-            seconds = Long.parseLong(split[1]);
-        } catch (NumberFormatException e) {
-            throw new RuntimeException("cooldown parameter '" + param + "' has invalid formatting - number after '#' needed, but got: '" + split[1] + "'");
-        }
         long currMillis = System.currentTimeMillis();
-        Long millis = cooldowns.getIfPresent(key);
+        Long millis = cooldowns.getIfPresent(param);
         if (millis == null) {
-            return "0";
+            return "43200";
         } else {
             long diff = TimeUnit.MILLISECONDS.toSeconds(currMillis - millis);
             if (diff < 1) {
-                cooldowns.invalidate(key);
                 return "0";
             } else {
-                return Long.toString(seconds - diff);
+                return Long.toString(diff);
             }
         }
     }

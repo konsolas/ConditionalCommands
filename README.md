@@ -44,8 +44,8 @@ Placeholders are delimited by '-'. Since they're applied with a replace, errors 
  - ```perm_count:<permission>``` - Number of players online who have the permission, 0.0 otherwise. e.g. ```-perm_count:essentials.home-```
  - ```aacvl:<check>``` - AAC 1-4 violation level of the given check (internal name). e.g. ```-aacvl:speed-```
  - ```chance:<percentage>%``` - Will be 1.0 percentage% of the time. e.g. ```-chance:34.5%-```
- - ```cooldown:<arbitrarykey>#<seconds>``` - Returns 0 if /cc cooldown has never been executed for the given ```<arbitrarykey>```, or if it was last executed more than ```<seconds>``` ago. Otherwise, returns time in seconds since the last execution of the cooldown command. Never returns a value < 0.
-   e. g. ```-cooldown:notifyforplayer#600-```
+ - ```cooldown:<arbitrarykey>``` - Returns time in seconds since the last execution of the ```/cc cooldown <arbitrarykey>``` command. Returns ```43200``` if ```/cc cooldown``` has never been executed for the given ```<arbitrarykey>```. Never returns a value < 0.
+   e. g. ```-cooldown:dont_spam_me-```
    Maximum supported cooldown is 12 Hours aka 43200 seconds.
    Use for example the player placeholder inside aac's configuration as part of the arbitrarykey.
 
