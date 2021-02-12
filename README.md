@@ -42,8 +42,12 @@ Placeholders are delimited by '-'. Since they're applied with a replace, errors 
  - ```player_count``` - Number of players on the server
  - ```perm:<permission>``` - 1.0 if the player has the permission, 0.0 otherwise. e.g. ```-perm:essentials.home-```
  - ```perm_count:<permission>``` - Number of players online who have the permission, 0.0 otherwise. e.g. ```-perm_count:essentials.home-```
- - ```aacvl:<check>``` - AAC violation level of the given check (internal name). e.g. ```-aacvl:speed-```
+ - ```aacvl:<check>``` - AAC 1-4 violation level of the given check (internal name). e.g. ```-aacvl:speed-```
  - ```chance:<percentage>%``` - Will be 1.0 percentage% of the time. e.g. ```-chance:34.5%-```
+ - ```cooldown:<arbitrarykey>``` - Returns time in seconds since the last execution of the ```/cc cooldown <arbitrarykey>``` command. Returns ```43200``` if ```/cc cooldown``` has never been executed for the given ```<arbitrarykey>```. Never returns a value < 0.
+   e.g. ```/cc if -cooldown:some_key->59 do /0/ cc cooldown some_key /0/ broadcast sent up to once every 60 seconds```
+   Maximum supported cooldown is 12 Hours aka 43200 seconds. Cooldowns are not saved to file, so they reset on server reload/restart.
+   Use for example the player placeholder inside aac's configuration as part of the arbitrarykey.
 
 ### Multi command / delayed commands
 In the 'do' clause of the statement, multiple commands can be executed at once, and selected commands can be delayed if desired. The command delimiter is ```/<delay>/```, where the integer between ```/``` and ```/``` denotes the delay before the command should be executed in ticks. Here are some examples:

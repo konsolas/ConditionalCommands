@@ -1,5 +1,6 @@
 package me.konsolas.conditionalcommands;
 
+import me.konsolas.conditionalcommands.placeholders.PlaceholderCooldown;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("DuplicateExpressions")
 public class ConditionalCommands extends JavaPlugin {
     private static final Pattern SPLIT_PATTERN = Pattern.compile("/([0-9]*)/");
 
@@ -28,16 +30,18 @@ public class ConditionalCommands extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         boolean player = (sender instanceof Player);
 
-        if (args.length == 0 || (args.length > 1 && args.length < 5)) {
+        if (args.length == 0 || (args.length > 2 && args.length < 5)) {
             sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Incorrect number of arguments.");
             sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] >" + (player ? ChatColor.GREEN : "") + "   /cc help");
             return false;
         }
 
         if (args.length == 1) {
-            if (args[0].equals("help")) {
+            if (args[0].equalsIgnoreCase("help")) {
                 sender.sendMessage((player ? ChatColor.GOLD : "") + "--------=ConditionalCommands=--------");
                 sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc help");
+                sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc reload");
+                sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc cooldown <arbitrarykey>");
                 sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc <player> unless \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "condition"
                         + (player ? ChatColor.GREEN : "") + "\" do \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "command" + (player ? ChatColor.GREEN : "") + "\"");
                 sender.sendMessage((player ? ChatColor.GREEN : "") + "  /cc <player> if \"" + (player ? ChatColor.LIGHT_PURPLE : "") + "condition"
@@ -47,11 +51,23 @@ public class ConditionalCommands extends JavaPlugin {
                 sender.sendMessage((player ? ChatColor.GRAY : "") + "Please note that conditions cannot include any spaces.");
                 sender.sendMessage((player ? ChatColor.GRAY : "") + "For debug information, enable dev mode in the configuration file. ");
                 sender.sendMessage((player ? ChatColor.GOLD : "") + "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+            } else if (args[0].equalsIgnoreCase("reload")) {
+                reloadConfig();
+                sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Config reloaded.");
             } else {
                 sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Incorrect subcommand.");
                 sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] >" + (player ? ChatColor.GREEN : "") + "   /cc help");
             }
             return false;
+        }
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("cooldown")) {
+                String key = args[1];
+                ((PlaceholderCooldown) Placeholders.COOLDOWN.getPlaceholder()).putOnCooldown(key);
+            } else {
+                sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Incorrect subcommand.");
+                sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] >" + (player ? ChatColor.GREEN : "") + "   /cc help");
+            }
         }
 
         // Sub command
@@ -166,17 +182,21 @@ public class ConditionalCommands extends JavaPlugin {
                     }
 
                     final String cmd = command.substring(cmdStart, cmdEnd).trim();
-
-                    if (getConfig().getBoolean("dev")) {
-                        sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Will dispatch command \"" + cmd + "\" in " + delay + " ticks");
-                    }
-
-                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-                        @Override
-                        public void run() {
-                            protectedDispatch(sender, cmd);
+                    
+                    if (delay <= 0) {
+                        protectedDispatch(sender, cmd);
+                    } else {
+                        if (getConfig().getBoolean("dev")) {
+                            sender.sendMessage((player ? ChatColor.GOLD : "") + "[ConditionalCommands] > Will dispatch command \"" + cmd + "\" in " + delay + " ticks");
                         }
-                    }, delay);
+
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+                            @Override
+                            public void run() {
+                                protectedDispatch(sender, cmd);
+                            }
+                        }, delay);
+                    }
                 } while (cmdEnd != command.length());
             } catch (NumberFormatException e) {
                 if (getConfig().getBoolean("dev")) {

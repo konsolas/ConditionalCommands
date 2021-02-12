@@ -11,9 +11,10 @@ enum Placeholders {
     PERM(new PlaceholderPerm()),
     PERM_COUNT(new PlaceholderPermCount()),
     AACVL(new PlaceholderAACVL()),
-    CHANCE(new PlaceholderChance());
+    CHANCE(new PlaceholderChance()),
+    COOLDOWN(new PlaceholderCooldown());
 
-    private Placeholder placeholder;
+    private final Placeholder placeholder;
 
     Placeholders(Placeholder placeholder) {
         this.placeholder = placeholder;
