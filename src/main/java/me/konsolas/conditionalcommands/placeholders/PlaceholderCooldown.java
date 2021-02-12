@@ -27,7 +27,7 @@ public class PlaceholderCooldown extends AbstractParameteredPlaceholder {
             if (diff < 1) {
                 return "0";
             } else {
-                return Long.toString(Math.min(diff, 3200));
+                return Long.toString(Math.min(diff, 43200));
             }
         }
     }
