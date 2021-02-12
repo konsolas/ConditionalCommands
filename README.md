@@ -45,8 +45,8 @@ Placeholders are delimited by '-'. Since they're applied with a replace, errors 
  - ```aacvl:<check>``` - AAC 1-4 violation level of the given check (internal name). e.g. ```-aacvl:speed-```
  - ```chance:<percentage>%``` - Will be 1.0 percentage% of the time. e.g. ```-chance:34.5%-```
  - ```cooldown:<arbitrarykey>``` - Returns time in seconds since the last execution of the ```/cc cooldown <arbitrarykey>``` command. Returns ```43200``` if ```/cc cooldown``` has never been executed for the given ```<arbitrarykey>```. Never returns a value < 0.
-   e. g. ```-cooldown:dont_spam_me-```
-   Maximum supported cooldown is 12 Hours aka 43200 seconds.
+   e.g. ```/cc if -cooldown:some_key->59 do /0/ cc cooldown some_key /0/ broadcast sent up to once every 60 seconds```
+   Maximum supported cooldown is 12 Hours aka 43200 seconds. Cooldowns are not saved to file, so they reset on server reload/restart.
    Use for example the player placeholder inside aac's configuration as part of the arbitrarykey.
 
 ### Multi command / delayed commands
