@@ -1,5 +1,5 @@
 name: ConditionalCommands
-version: 1.4
+version: 1.5
 main: me.konsolas.conditionalcommands.ConditionalCommands
 description: Excecute commands based on conditions. Useful in configured commands from other plugins
 author: konsolas
