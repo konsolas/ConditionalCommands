@@ -9,7 +9,10 @@ ConditionalCommands is intended to be used when plugins have automatic commands 
 /cc <player> unless <condition> do <command>
 /cc <player> if <condition> do <command>
 /cc help
+/cc reload
+/cc cooldown <arbitrarykey>
 ```
+Alias: `/ccmd`
 
 ### Conditions
 Grammar of conditions:
