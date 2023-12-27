@@ -24,10 +24,15 @@ public class PlaceholderMSPT extends AbstractParameteredPlaceholder {
 
     @Override
     public void init(Plugin plugin) {
-        if (Bukkit.getPluginManager().isPluginEnabled("spark")) {
-            mspt = new MSPTProviderSpark();
-        } else {
-            Bukkit.getLogger().warning("Spark is not installed!");
-        }
+        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+            @Override
+            public void run() {
+                if (Bukkit.getPluginManager().isPluginEnabled("spark")) {
+                    mspt = new MSPTProviderSpark();
+                } else {
+                    Bukkit.getLogger().warning("Spark is not installed!");
+                }
+            }
+        }, 20);
     }
 }

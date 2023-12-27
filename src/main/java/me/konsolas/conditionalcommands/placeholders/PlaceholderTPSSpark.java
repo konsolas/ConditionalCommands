@@ -20,8 +20,13 @@ public class PlaceholderTPSSpark extends AbstractParameteredPlaceholder {
 
     @Override
     public void init(Plugin plugin) {
-        if (Bukkit.getPluginManager().isPluginEnabled("spark")) {
-            tps = new TPSProviderSpark();
-        }
+        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+            @Override
+            public void run() {
+                if (Bukkit.getPluginManager().isPluginEnabled("spark")) {
+                    tps = new TPSProviderSpark();
+                }
+            }
+        }, 20);
     }
 }
