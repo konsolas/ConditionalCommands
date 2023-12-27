@@ -52,7 +52,7 @@ Placeholders are delimited by '-'. Since they're applied with a replace, errors 
    Maximum supported cooldown is 12 Hours aka 43200 seconds. Cooldowns are not saved to file, so they reset on server reload/restart.
    Use for example the player placeholder inside aac's configuration as part of the arbitrarykey.
 
-#### With [spark](https://spark.lucko.me/] installed) installed
+#### With [spark](https://spark.lucko.me/]) installed
 - ```tps:<window>```\
 **Windows:** 5s, 10s, 1m, 5m, 15m
 - ```mspt:<function[<arg>, <arg2*>]>```\
@@ -71,7 +71,7 @@ Placeholders are delimited by '-'. Since they're applied with a replace, errors 
     - mspt:sys[10s]
     - mspt:proc[1m]
 
-**Note:** ```tps``` without parameters will stop working!
+**Note:** ```tps``` without parameters will stop working if spark is installed!
 
 ### Multi command / delayed commands
 In the 'do' clause of the statement, multiple commands can be executed at once, and selected commands can be delayed if desired. The command delimiter is ```/<delay>/```, where the integer between ```/``` and ```/``` denotes the delay before the command should be executed in ticks. Here are some examples:
