@@ -10,7 +10,7 @@ public abstract class AbstractParameteredPlaceholder implements Placeholder {
     private final Pattern pattern;
 
     AbstractParameteredPlaceholder(String base) {
-        this.pattern = Pattern.compile("-" + base + ":([A-Za-z0-9%._]*\\[[^\\]]*\\])?-");
+        this.pattern = Pattern.compile("-" + base + ":([A-Za-z0-9%._]*(\\[[^\\]]*\\])?)-");
     }
 
     @Override
