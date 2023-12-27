@@ -4,7 +4,9 @@ import me.konsolas.conditionalcommands.placeholders.*;
 
 enum Placeholders {
     PING(new PlaceholderPing()),
-    TPS(new PlaceholderTPS()),
+    TPS(null),
+    MSPT(new PlaceholderMSPT()),
+    CPU(new PlaceholderCPU()),
     TIME_ONLINE(new PlaceholderTimeOnline()),
     PLAYER_COUNT(new PlaceholderPlayerCount()),
     UPTIME(new PlaceholderUptime()),
@@ -14,7 +16,7 @@ enum Placeholders {
     CHANCE(new PlaceholderChance()),
     COOLDOWN(new PlaceholderCooldown());
 
-    private final Placeholder placeholder;
+    private Placeholder placeholder;
 
     Placeholders(Placeholder placeholder) {
         this.placeholder = placeholder;
@@ -22,5 +24,9 @@ enum Placeholders {
 
     public Placeholder getPlaceholder() {
         return placeholder;
+    }
+
+    public void setPlaceHolder(Placeholder placeholder) {
+        this.placeholder = placeholder;
     }
 }
