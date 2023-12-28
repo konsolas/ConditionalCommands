@@ -10,7 +10,7 @@ public abstract class AbstractParameteredPlaceholder implements Placeholder {
     private final Pattern pattern;
 
     AbstractParameteredPlaceholder(String base) {
-        this.pattern = Pattern.compile("-" + base + ":([A-Za-z0-9%._]*(\\[[^\\]]*\\])?)-");
+        this.pattern = Pattern.compile("-" + base + ":([A-Za-z0-9%._]+(\\[[^]]*])?)-");
     }
 
     @Override
@@ -25,7 +25,9 @@ public abstract class AbstractParameteredPlaceholder implements Placeholder {
         Matcher matcher = pattern.matcher(input);
 
         while (matcher.find()) {
-            input = input.replaceAll(Pattern.quote(matcher.group()), getSub(player, matcher.group(1)));
+            String fullMatch = matcher.group(0);
+            String param = matcher.group(1);
+            input = input.replace(fullMatch, getSub(player, param));
         }
 
         return input;
