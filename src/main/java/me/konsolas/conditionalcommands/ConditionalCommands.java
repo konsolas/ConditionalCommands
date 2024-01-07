@@ -1,6 +1,8 @@
 package me.konsolas.conditionalcommands;
 
 import me.konsolas.conditionalcommands.placeholders.PlaceholderCooldown;
+import me.konsolas.conditionalcommands.placeholders.PlaceholderTPSBukkit;
+import me.konsolas.conditionalcommands.placeholders.PlaceholderTPSSpark;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -20,6 +22,10 @@ public class ConditionalCommands extends JavaPlugin {
         saveDefaultConfig();
 
         getLogger().info("Initializing placeholders...");
+        Placeholders.TPS.setPlaceHolder(Bukkit.getPluginManager().isPluginEnabled("spark")
+                ? new PlaceholderTPSSpark()
+                : new PlaceholderTPSBukkit());
+
         for (Placeholders placeholder : Placeholders.values()) {
             placeholder.getPlaceholder().init(this);
         }
@@ -182,7 +188,7 @@ public class ConditionalCommands extends JavaPlugin {
                     }
 
                     final String cmd = command.substring(cmdStart, cmdEnd).trim();
-                    
+
                     if (delay <= 0) {
                         protectedDispatch(sender, cmd);
                     } else {
